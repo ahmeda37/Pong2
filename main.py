@@ -1,5 +1,5 @@
 import turtle
-
+import winsound
 
 def init_piece(ball):
     result = turtle.Turtle()
@@ -43,8 +43,8 @@ paddle_2.goto(350, 0)
 # Ball
 ball = init_piece(True)
 ball.goto(0, 0)
-ball.dx = .2
-ball.dy = .2
+ball.dx = .5
+ball.dy = .5
 
 # Score
 pen = init_score()
@@ -81,10 +81,8 @@ window.onkeypress(paddle_1_down, "s")
 window.onkeypress(paddle_2_up, "Up")
 window.onkeypress(paddle_2_down, "Down")
 
-
-draw_score(pen, 0, 0)
-
-
+player_1 = 0
+player_2 = 0
 
 # GAME LOOP
 while True:
@@ -98,24 +96,33 @@ while True:
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dx *= -1
+        player_1 += 1
+
 
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dx *= -1
+        player_2 += 1
 
     # Paddle and ball collisions
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_2.ycor() + 50 and ball.ycor() > paddle_2.ycor() - 50):
         ball.setx(340)
         ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
     if (ball.xcor() < -340 and ball.xcor() > -350 ) and (ball.ycor() < paddle_1.ycor() + 50 and ball.ycor() > paddle_1.ycor() - 50):
         ball.setx(-340)
         ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+
+    draw_score(pen, player_1, player_2)
