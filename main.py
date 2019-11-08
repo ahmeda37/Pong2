@@ -125,4 +125,16 @@ while True:
         ball.dx *= -1
         winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
+    if paddle_1.ycor() > 340:
+        paddle_1.sety(-340)
+
+    if paddle_1.ycor() < -340:
+        paddle_1.sety(340)
+
+    if paddle_2.ycor() > 340:
+        paddle_2.sety(-340)
+
+    if paddle_2.ycor() < -340:
+        paddle_2.sety(340)
+
     draw_score(pen, player_1, player_2)
